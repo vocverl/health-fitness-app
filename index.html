@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit & Gezond - Jouw Health & Fitness Gids</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">💪 Fit & Gezond</h1>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#wandelen" class="nav-link">Wandelen</a></li>
+                <li><a href="#recepten" class="nav-link">Recepten</a></li>
+                <li><a href="#tips" class="nav-link">Tips</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welkom bij Fit & Gezond!</h1>
+            <p class="hero-subtitle">Jouw persoonlijke gids voor een gezondere levensstijl</p>
+            <p class="hero-description">
+                Ontdek de voordelen van dagelijks wandelen en lekker, gezond eten.
+                Hier deel ik mijn ervaringen, motivatie en favoriete recepten met je!
+            </p>
+            <div class="cta-buttons">
+                <a href="#wandelen" class="btn btn-primary">Start met Wandelen</a>
+                <a href="#recepten" class="btn btn-secondary">Bekijk Recepten</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="wandelen" class="section wandelen-section">
+        <div class="container">
+            <h2 class="section-title">🚶‍♂️ Wandelmotivatie</h2>
+            <p class="section-intro">
+                Wandelen is een fantastische manier om in beweging te komen. Je hoeft niet te hardlopen om fit te blijven!
+            </p>
+
+            <div class="walking-tracker">
+                <h3>Mijn Wandeltracker</h3>
+                <div class="tracker-card">
+                    <div class="stat-box">
+                        <span class="stat-number" id="todaySteps">0</span>
+                        <span class="stat-label">Stappen vandaag</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number" id="totalKm">0</span>
+                        <span class="stat-label">Kilometers deze week</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number" id="streakDays">0</span>
+                        <span class="stat-label">Dagen streak</span>
+                    </div>
+                </div>
+
+                <div class="log-walk">
+                    <h4>Registreer je wandeling</h4>
+                    <div class="input-group">
+                        <input type="number" id="walkKm" placeholder="Kilometers" step="0.1" min="0">
+                        <input type="number" id="walkMinutes" placeholder="Minuten" step="1" min="0">
+                        <button onclick="logWalk()" class="btn btn-primary">Toevoegen</button>
+                    </div>
+                </div>
+
+                <div id="walkHistory" class="walk-history">
+                    <h4>Recente wandelingen</h4>
+                    <div id="walkList"></div>
+                </div>
+            </div>
+
+            <div class="motivation-cards">
+                <h3>Wandeltips</h3>
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <h4>Begin Klein</h4>
+                        <p>Start met 15-30 minuten per dag. Bouw het langzaam op naar een uur.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⏰</div>
+                        <h4>Maak het een Gewoonte</h4>
+                        <p>Kies een vast tijdstip. 's Ochtends of na het werk werkt voor de meeste mensen.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎵</div>
+                        <h4>Maak het Leuk</h4>
+                        <p>Luister naar muziek, podcasts of audioboeken tijdens het wandelen.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👟</div>
+                        <h4>Goede Schoenen</h4>
+                        <p>Investeer in comfortabele wandelschoenen. Dit maakt een groot verschil!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="recepten" class="section recepten-section">
+        <div class="container">
+            <h2 class="section-title">🍽️ Gezonde Recepten</h2>
+            <p class="section-intro">
+                Lekker en gezond eten hoeft niet moeilijk te zijn. Hier zijn mijn favoriete recepten!
+            </p>
+
+            <div class="recipe-grid" id="recipeGrid">
+                <!-- Recepten worden hier dynamisch toegevoegd -->
+            </div>
+
+            <div class="add-recipe-section">
+                <h3>Nieuw Recept Toevoegen</h3>
+                <form id="recipeForm" class="recipe-form">
+                    <div class="form-group">
+                        <label for="recipeName">Naam van het recept</label>
+                        <input type="text" id="recipeName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeCategory">Categorie</label>
+                        <select id="recipeCategory" required>
+                            <option value="">Selecteer een categorie</option>
+                            <option value="ontbijt">Ontbijt</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="diner">Diner</option>
+                            <option value="snack">Snack</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeIngredients">Ingrediënten (één per regel)</label>
+                        <textarea id="recipeIngredients" rows="5" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeInstructions">Bereidingswijze</label>
+                        <textarea id="recipeInstructions" rows="6" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeImage">Foto URL (optioneel)</label>
+                        <input type="url" id="recipeImage" placeholder="https://...">
+                        <small>Upload je foto naar een image hosting service en plak de URL hier</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipePrepTime">Bereidingstijd (minuten)</label>
+                        <input type="number" id="recipePrepTime" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipeCalories">Calorieën (optioneel)</label>
+                        <input type="number" id="recipeCalories" min="0">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Recept Opslaan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="tips" class="section tips-section">
+        <div class="container">
+            <h2 class="section-title">💡 Health & Fitness Tips</h2>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>🥤 Hydratatie</h3>
+                    <p>Drink minimaal 2 liter water per dag. Begin je dag met een glas water!</p>
+                </div>
+                <div class="tip-card">
+                    <h3>😴 Slaap</h3>
+                    <p>Zorg voor 7-8 uur slaap per nacht. Goede rust is essentieel voor herstel.</p>
+                </div>
+                <div class="tip-card">
+                    <h3>🥗 Voeding</h3>
+                    <p>Eet een regenboog aan groenten. Meer kleur = meer voedingsstoffen!</p>
+                </div>
+                <div class="tip-card">
+                    <h3>📱 Mindfulness</h3>
+                    <p>Neem elke dag even tijd voor jezelf. Een korte meditatie kan wonderen doen.</p>
+                </div>
+                <div class="tip-card">
+                    <h3>🎯 Doelen</h3>
+                    <p>Stel realistische doelen. Kleine stapjes leiden tot grote veranderingen!</p>
+                </div>
+                <div class="tip-card">
+                    <h3>👥 Sociale Steun</h3>
+                    <p>Deel je journey met vrienden. Samen blijf je gemotiveerd!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Fit & Gezond - Samen naar een gezondere levensstijl 💚</p>
+            <p class="footer-small">Deel deze app met vrienden die ook gezonder willen leven!</p>
+        </div>
+    </footer>
+
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="recipeDetails"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
