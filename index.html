@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fit & Gezond - Jouw Health & Fitness Gids</title>
+    <title>Fit & Gezond - Voeding & Fitness Journey</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,9 +12,9 @@
             <h1 class="logo">💪 Fit & Gezond</h1>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#wandelen" class="nav-link">Wandelen</a></li>
+                <li><a href="#metrics" class="nav-link">Mijn Metrics</a></li>
                 <li><a href="#recepten" class="nav-link">Recepten</a></li>
-                <li><a href="#tips" class="nav-link">Tips</a></li>
+                <li><a href="#myfitnesspal" class="nav-link">Food Diary</a></li>
             </ul>
         </div>
     </nav>
@@ -22,79 +22,103 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Welkom bij Fit & Gezond!</h1>
-            <p class="hero-subtitle">Jouw persoonlijke gids voor een gezondere levensstijl</p>
+            <p class="hero-subtitle">Mijn persoonlijke fitness & voedingsjourney</p>
             <p class="hero-description">
-                Ontdek de voordelen van dagelijks wandelen en lekker, gezond eten.
-                Hier deel ik mijn ervaringen, motivatie en favoriete recepten met je!
+                Hier deel ik wat voor mij werkt: gezond eten met focus op macros,
+                progressie in lichaamsamenstelling en cardio fitness.
+                Volg mijn journey en laat je inspireren!
             </p>
             <div class="cta-buttons">
-                <a href="#wandelen" class="btn btn-primary">Start met Wandelen</a>
-                <a href="#recepten" class="btn btn-secondary">Bekijk Recepten</a>
+                <a href="#metrics" class="btn btn-primary">Bekijk Mijn Metrics</a>
+                <a href="#recepten" class="btn btn-secondary">Zie Recepten</a>
             </div>
         </div>
     </section>
 
-    <section id="wandelen" class="section wandelen-section">
+    <section id="metrics" class="section metrics-section">
         <div class="container">
-            <h2 class="section-title">🚶‍♂️ Wandelmotivatie</h2>
+            <h2 class="section-title">📊 Mijn Fitness Metrics</h2>
             <p class="section-intro">
-                Wandelen is een fantastische manier om in beweging te komen. Je hoeft niet te hardlopen om fit te blijven!
+                Track je voortgang met concrete cijfers. Dit zijn de metrics die ik bijhoud en waar ik aan werk.
             </p>
 
-            <div class="walking-tracker">
-                <h3>Mijn Wandeltracker</h3>
-                <div class="tracker-card">
-                    <div class="stat-box">
-                        <span class="stat-number" id="todaySteps">0</span>
-                        <span class="stat-label">Stappen vandaag</span>
+            <div class="metrics-grid">
+                <!-- Body Fat Percentage Card -->
+                <div class="metric-card bodyfat-card">
+                    <div class="metric-header">
+                        <h3>💪 Lichaamsvetpercentage</h3>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-number" id="totalKm">0</span>
-                        <span class="stat-label">Kilometers deze week</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-number" id="streakDays">0</span>
-                        <span class="stat-label">Dagen streak</span>
+                    <div class="metric-content">
+                        <div class="metric-photo-section">
+                            <div class="metric-photo" id="bodyfatPhoto">
+                                <span class="photo-placeholder">📸</span>
+                                <p class="photo-help">Klik om foto toe te voegen</p>
+                            </div>
+                            <input type="file" id="bodyfatPhotoInput" accept="image/*" style="display: none;">
+                        </div>
+                        <div class="metric-stats">
+                            <div class="current-stat">
+                                <label for="currentBodyfat">Huidige %</label>
+                                <input type="number" id="currentBodyfat" step="0.1" min="0" max="50" placeholder="15.0">
+                            </div>
+                            <div class="goal-stat">
+                                <label for="goalBodyfat">Doel %</label>
+                                <input type="number" id="goalBodyfat" step="0.1" min="0" max="50" placeholder="12.0">
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="bodyfatProgress"></div>
+                            </div>
+                            <button onclick="saveBodyfat()" class="btn btn-primary">Opslaan</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="log-walk">
-                    <h4>Registreer je wandeling</h4>
-                    <div class="input-group">
-                        <input type="number" id="walkKm" placeholder="Kilometers" step="0.1" min="0">
-                        <input type="number" id="walkMinutes" placeholder="Minuten" step="1" min="0">
-                        <button onclick="logWalk()" class="btn btn-primary">Toevoegen</button>
+                <!-- VO2 Max Card -->
+                <div class="metric-card vo2max-card">
+                    <div class="metric-header">
+                        <h3>❤️ VO2 Max</h3>
+                        <span class="metric-subtitle">Cardio fitness level</span>
                     </div>
-                </div>
-
-                <div id="walkHistory" class="walk-history">
-                    <h4>Recente wandelingen</h4>
-                    <div id="walkList"></div>
+                    <div class="metric-content">
+                        <div class="vo2-visual">
+                            <div class="vo2-gauge">
+                                <div class="gauge-value" id="vo2Display">--</div>
+                                <div class="gauge-unit">ml/kg/min</div>
+                            </div>
+                        </div>
+                        <div class="metric-stats">
+                            <div class="current-stat">
+                                <label for="currentVO2">Huidige VO2 Max</label>
+                                <input type="number" id="currentVO2" step="0.1" min="0" max="100" placeholder="45.0">
+                            </div>
+                            <div class="goal-stat">
+                                <label for="goalVO2">Doel VO2 Max</label>
+                                <input type="number" id="goalVO2" step="0.1" min="0" max="100" placeholder="50.0">
+                            </div>
+                            <div class="vo2-category" id="vo2Category">
+                                Vul je VO2 max in om je fitness level te zien
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="vo2Progress"></div>
+                            </div>
+                            <button onclick="saveVO2()" class="btn btn-primary">Opslaan</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="motivation-cards">
-                <h3>Wandeltips</h3>
-                <div class="cards-grid">
-                    <div class="card">
-                        <div class="card-icon">🎯</div>
-                        <h4>Begin Klein</h4>
-                        <p>Start met 15-30 minuten per dag. Bouw het langzaam op naar een uur.</p>
+            <div class="metrics-info">
+                <h3>💡 Waarom deze metrics?</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Lichaamsvetpercentage</h4>
+                        <p>Een betere indicator dan gewicht alleen. Het toont de échte veranderingen in je lichaamsamenstelling.
+                        Combineer met foto's om je visuele progressie te zien!</p>
                     </div>
-                    <div class="card">
-                        <div class="card-icon">⏰</div>
-                        <h4>Maak het een Gewoonte</h4>
-                        <p>Kies een vast tijdstip. 's Ochtends of na het werk werkt voor de meeste mensen.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">🎵</div>
-                        <h4>Maak het Leuk</h4>
-                        <p>Luister naar muziek, podcasts of audioboeken tijdens het wandelen.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">👟</div>
-                        <h4>Goede Schoenen</h4>
-                        <p>Investeer in comfortabele wandelschoenen. Dit maakt een groot verschil!</p>
+                    <div class="info-card">
+                        <h4>VO2 Max</h4>
+                        <p>Meet je cardio fitness en aerobe capaciteit. Een hogere VO2 max betekent betere uithoudingsvermogen
+                        en een gezonder cardiovasculair systeem. Track dit met je Withings of Apple Watch!</p>
                     </div>
                 </div>
             </div>
@@ -152,9 +176,22 @@
                         <input type="number" id="recipePrepTime" min="1" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="recipeCalories">Calorieën (optioneel)</label>
-                        <input type="number" id="recipeCalories" min="0">
+                    <div class="macros-group">
+                        <h4>Macros (optioneel)</h4>
+                        <div class="macro-inputs">
+                            <div class="macro-input">
+                                <label for="recipeProtein">Eiwit (g)</label>
+                                <input type="number" id="recipeProtein" min="0" step="0.1" placeholder="30">
+                            </div>
+                            <div class="macro-input">
+                                <label for="recipeCarbs">Koolhydraten (g)</label>
+                                <input type="number" id="recipeCarbs" min="0" step="0.1" placeholder="45">
+                            </div>
+                            <div class="macro-input">
+                                <label for="recipeFat">Vet (g)</label>
+                                <input type="number" id="recipeFat" min="0" step="0.1" placeholder="15">
+                            </div>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Recept Opslaan</button>
@@ -163,34 +200,52 @@
         </div>
     </section>
 
-    <section id="tips" class="section tips-section">
+    <section id="myfitnesspal" class="section mfp-section">
         <div class="container">
-            <h2 class="section-title">💡 Health & Fitness Tips</h2>
+            <h2 class="section-title">📱 Mijn Food Diary</h2>
+            <p class="section-intro">
+                Ik track bijna dagelijks wat ik eet in MyFitnessPal. Dit helpt mij bewust te blijven van mijn macros en voedingsinname.
+            </p>
 
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <h3>🥤 Hydratatie</h3>
-                    <p>Drink minimaal 2 liter water per dag. Begin je dag met een glas water!</p>
+            <div class="mfp-card">
+                <div class="mfp-logo">
+                    <h3>MyFitnessPal</h3>
                 </div>
-                <div class="tip-card">
-                    <h3>😴 Slaap</h3>
-                    <p>Zorg voor 7-8 uur slaap per nacht. Goede rust is essentieel voor herstel.</p>
-                </div>
-                <div class="tip-card">
-                    <h3>🥗 Voeding</h3>
-                    <p>Eet een regenboog aan groenten. Meer kleur = meer voedingsstoffen!</p>
-                </div>
-                <div class="tip-card">
-                    <h3>📱 Mindfulness</h3>
-                    <p>Neem elke dag even tijd voor jezelf. Een korte meditatie kan wonderen doen.</p>
-                </div>
-                <div class="tip-card">
-                    <h3>🎯 Doelen</h3>
-                    <p>Stel realistische doelen. Kleine stapjes leiden tot grote veranderingen!</p>
-                </div>
-                <div class="tip-card">
-                    <h3>👥 Sociale Steun</h3>
-                    <p>Deel je journey met vrienden. Samen blijf je gemotiveerd!</p>
+                <div class="mfp-content">
+                    <p>Bekijk mijn dagelijkse voedingsdagboek op MyFitnessPal en zie wat ik zoal eet!</p>
+
+                    <div class="mfp-info">
+                        <div class="info-item">
+                            <strong>Username:</strong> <code>vocverl</code>
+                        </div>
+                        <div class="info-item">
+                            <strong>Toegangscode:</strong> <code>btfftm</code>
+                        </div>
+                    </div>
+
+                    <div class="mfp-steps">
+                        <h4>Hoe mijn diary te bekijken:</h4>
+                        <ol>
+                            <li>Ga naar <a href="https://www.myfitnesspal.com" target="_blank">MyFitnessPal.com</a></li>
+                            <li>Zoek naar gebruiker: <strong>vocverl</strong></li>
+                            <li>Gebruik toegangscode: <strong>btfftm</strong></li>
+                            <li>Bekijk mijn dagelijkse voedingsinname en macros!</li>
+                        </ol>
+                    </div>
+
+                    <a href="https://www.myfitnesspal.com/food/diary/vocverl" target="_blank" class="btn btn-primary mfp-button">
+                        Bekijk Mijn Food Diary
+                    </a>
+
+                    <div class="mfp-benefits">
+                        <h4>💡 Waarom MyFitnessPal?</h4>
+                        <ul>
+                            <li><strong>Macro tracking:</strong> Zie exact hoeveel eiwitten, koolhydraten en vetten ik eet</li>
+                            <li><strong>Consistency:</strong> Bijhouden helpt mij consistent te blijven met mijn voedingsdoelen</li>
+                            <li><strong>Bewustwording:</strong> Je wordt je meer bewust van wat je echt eet</li>
+                            <li><strong>Inspiratie:</strong> Krijg ideeën voor gezonde maaltijden door mijn diary te volgen</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

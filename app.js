@@ -1,208 +1,236 @@
 // LocalStorage keys
 const STORAGE_KEYS = {
-    WALKS: 'walks',
     RECIPES: 'recipes',
-    STATS: 'stats'
+    BODYFAT: 'bodyfat',
+    VO2MAX: 'vo2max'
 };
 
 // Initialize data from localStorage or create default
-let walks = JSON.parse(localStorage.getItem(STORAGE_KEYS.WALKS)) || [];
 let recipes = JSON.parse(localStorage.getItem(STORAGE_KEYS.RECIPES)) || [];
+let bodyfatData = JSON.parse(localStorage.getItem(STORAGE_KEYS.BODYFAT)) || {};
+let vo2Data = JSON.parse(localStorage.getItem(STORAGE_KEYS.VO2MAX)) || {};
 
-// Sample recipes voor demonstratie
+// Realistische recepten op basis van wat de gebruiker eet
 if (recipes.length === 0) {
     recipes = [
         {
             id: Date.now() + 1,
-            name: "Groene Smoothie Bowl",
+            name: "Power Ontbijt met Eieren en Avocado",
             category: "ontbijt",
             ingredients: [
-                "1 bevroren banaan",
-                "Handvol spinazie",
-                "1 kiwi",
-                "250ml amandelmelk",
-                "Toppings: granola, bessen, chiazaad"
+                "3 eieren",
+                "½ avocado",
+                "Handvol doperwtjes (vers of bevroren)",
+                "1 tomaat in blokjes",
+                "Goede olijfolie (extra vergine)",
+                "Zout en peper naar smaak"
             ],
-            instructions: "Mix de banaan, spinazie, kiwi en amandelmelk in een blender tot een gladde massa. Schenk in een kom en versier met je favoriete toppings. Een voedzame start van je dag!",
+            instructions: "Bak de eieren zoals je ze lekker vindt (roerei, spiegelei of pocheer ze). Verwarm de doperwtjes kort. Snijd de avocado en tomaat. Arrangeer alles op een bord en besprenkel met goede olijfolie. Perfect high-protein ontbijt!",
             prepTime: 10,
-            calories: 320,
-            image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400"
+            macros: {
+                protein: 25,
+                carbs: 12,
+                fat: 28
+            },
+            image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400"
         },
         {
             id: Date.now() + 2,
-            name: "Quinoa Salade",
+            name: "Hele Zeebaars met Citroen",
             category: "lunch",
             ingredients: [
-                "200g quinoa",
-                "Cherry tomaten",
-                "Komkommer",
-                "Feta kaas",
+                "1 hele zeebaars (schoongemaakt)",
+                "1 citroen (in plakjes)",
+                "Verse tijm of peterselie",
                 "Olijfolie",
-                "Citroen",
-                "Verse munt"
+                "Knoflook (2 tenen)",
+                "Zout en peper"
             ],
-            instructions: "Kook de quinoa volgens de verpakking. Laat afkoelen. Snijd de groenten in stukjes en meng alles. Maak een dressing van olijfolie en citroensap. Perfecte lunch!",
-            prepTime: 20,
-            calories: 450,
-            image: "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=400"
+            instructions: "Verwarm de oven voor op 180°C. Vul de buikholte van de zeebaars met citroenplakjes en kruiden. Bestrijk de vis met olijfolie en kruid met zout en peper. Bak 25-30 minuten in de oven tot de vis gaar is. Heerlijk licht en vol eiwitten!",
+            prepTime: 35,
+            macros: {
+                protein: 42,
+                carbs: 3,
+                fat: 18
+            },
+            image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400"
         },
         {
             id: Date.now() + 3,
-            name: "Zoete Aardappel met Kikkererwten",
+            name: "Kipfilet met Paddenstoelen en Broccoli",
             category: "diner",
             ingredients: [
-                "2 zoete aardappels",
-                "1 blik kikkererwten",
-                "Paprikapoeder",
-                "Komijnpoeder",
-                "Yoghurt",
-                "Verse peterselie"
+                "200g kipfilet",
+                "200g gemengde paddenstoelen",
+                "1 kop broccoli roosjes",
+                "75g zilvervliesrijst (ongekookt)",
+                "100ml room (of kokosroom)",
+                "Knoflook, tijm",
+                "Olijfolie, zout, peper"
             ],
-            instructions: "Bak de zoete aardappel 45 min op 200°C. Rooster de kikkererwten met specerijen in de pan. Serveer met yoghurt en peterselie. Heerlijk en voedzaam!",
-            prepTime: 50,
-            calories: 380,
-            image: "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?w=400"
+            instructions: "Kook de zilvervliesrijst volgens de verpakking. Bak de kipfilet in olijfolie tot goudbruin en gaar. Voeg paddenstoelen en knoflook toe, bak 5 min. Voeg room toe en laat inkoken. Stoom ondertussen de broccoli. Serveer alles samen voor een complete, voedzame maaltijd!",
+            prepTime: 30,
+            macros: {
+                protein: 38,
+                carbs: 52,
+                fat: 22
+            },
+            image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400"
         }
     ];
     saveRecipes();
 }
 
-// ===== WANDEL FUNCTIES =====
+// ===== METRICS FUNCTIES =====
 
-function logWalk() {
-    const km = parseFloat(document.getElementById('walkKm').value);
-    const minutes = parseInt(document.getElementById('walkMinutes').value);
+// Body Fat Percentage
+function saveBodyfat() {
+    const current = parseFloat(document.getElementById('currentBodyfat').value);
+    const goal = parseFloat(document.getElementById('goalBodyfat').value);
 
-    if (!km || !minutes || km <= 0 || minutes <= 0) {
-        alert('Vul alstublieft geldige waarden in voor kilometers en minuten!');
+    if (!current || !goal) {
+        alert('Vul beide waarden in!');
         return;
     }
 
-    const walk = {
-        id: Date.now(),
-        date: new Date().toISOString(),
-        km: km,
-        minutes: minutes,
-        steps: Math.round(km * 1300) // Ongeveer 1300 stappen per km
+    bodyfatData = {
+        current: current,
+        goal: goal,
+        lastUpdated: new Date().toISOString()
     };
 
-    walks.unshift(walk);
-    saveWalks();
-
-    // Reset form
-    document.getElementById('walkKm').value = '';
-    document.getElementById('walkMinutes').value = '';
-
-    // Update UI
-    updateWalkStats();
-    displayWalkHistory();
-
-    // Success feedback
-    showNotification(`Geweldig! Je hebt ${km}km gewandeld in ${minutes} minuten! 🎉`);
+    localStorage.setItem(STORAGE_KEYS.BODYFAT, JSON.stringify(bodyfatData));
+    updateBodyfatDisplay();
+    showNotification('Lichaamsvetpercentage opgeslagen! 💪');
 }
 
-function saveWalks() {
-    localStorage.setItem(STORAGE_KEYS.WALKS, JSON.stringify(walks));
-}
+function updateBodyfatDisplay() {
+    if (bodyfatData.current && bodyfatData.goal) {
+        document.getElementById('currentBodyfat').value = bodyfatData.current;
+        document.getElementById('goalBodyfat').value = bodyfatData.goal;
 
-function updateWalkStats() {
-    const today = new Date().toDateString();
-    const todayWalks = walks.filter(w => new Date(w.date).toDateString() === today);
-    const todaySteps = todayWalks.reduce((sum, w) => sum + w.steps, 0);
+        // Bereken progress (reversed omdat lager beter is)
+        const progress = Math.max(0, Math.min(100,
+            ((bodyfatData.current - bodyfatData.goal) / bodyfatData.current) * 100
+        ));
 
-    // Bereken week stats
-    const weekAgo = new Date();
-    weekAgo.setDate(weekAgo.getDate() - 7);
-    const weekWalks = walks.filter(w => new Date(w.date) >= weekAgo);
-    const weekKm = weekWalks.reduce((sum, w) => sum + w.km, 0);
-
-    // Bereken streak
-    let streak = 0;
-    let checkDate = new Date();
-    checkDate.setHours(0, 0, 0, 0);
-
-    while (true) {
-        const hasWalk = walks.some(w => {
-            const walkDate = new Date(w.date);
-            walkDate.setHours(0, 0, 0, 0);
-            return walkDate.getTime() === checkDate.getTime();
-        });
-
-        if (hasWalk) {
-            streak++;
-            checkDate.setDate(checkDate.getDate() - 1);
-        } else {
-            break;
+        const progressBar = document.getElementById('bodyfatProgress');
+        if (progressBar) {
+            progressBar.style.width = Math.abs(100 - progress) + '%';
         }
     }
-
-    // Update UI met animatie
-    animateValue('todaySteps', 0, todaySteps, 1000);
-    animateValue('totalKm', 0, weekKm, 1000);
-    animateValue('streakDays', 0, streak, 1000);
 }
 
-function animateValue(id, start, end, duration) {
-    const element = document.getElementById(id);
-    const range = end - start;
-    const increment = range / (duration / 16);
-    let current = start;
+// Foto upload voor body fat
+document.addEventListener('DOMContentLoaded', function() {
+    const photoInput = document.getElementById('bodyfatPhotoInput');
+    const photoSection = document.getElementById('bodyfatPhoto');
 
-    const timer = setInterval(() => {
-        current += increment;
-        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-            current = end;
-            clearInterval(timer);
+    if (photoSection && photoInput) {
+        photoSection.addEventListener('click', () => photoInput.click());
+
+        photoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    photoSection.style.backgroundImage = `url(${event.target.result})`;
+                    photoSection.style.backgroundSize = 'cover';
+                    photoSection.style.backgroundPosition = 'center';
+                    photoSection.innerHTML = '';
+
+                    // Save to localStorage
+                    localStorage.setItem('bodyfatPhoto', event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Load saved photo
+        const savedPhoto = localStorage.getItem('bodyfatPhoto');
+        if (savedPhoto) {
+            photoSection.style.backgroundImage = `url(${savedPhoto})`;
+            photoSection.style.backgroundSize = 'cover';
+            photoSection.style.backgroundPosition = 'center';
+            photoSection.innerHTML = '';
         }
-        element.textContent = Math.round(current * 10) / 10;
-    }, 16);
-}
+    }
+});
 
-function displayWalkHistory() {
-    const walkList = document.getElementById('walkList');
+// VO2 Max
+function saveVO2() {
+    const current = parseFloat(document.getElementById('currentVO2').value);
+    const goal = parseFloat(document.getElementById('goalVO2').value);
 
-    if (walks.length === 0) {
-        walkList.innerHTML = '<p style="color: #666; text-align: center;">Nog geen wandelingen geregistreerd. Begin vandaag!</p>';
+    if (!current || !goal) {
+        alert('Vul beide waarden in!');
         return;
     }
 
-    const recentWalks = walks.slice(0, 10);
-    walkList.innerHTML = recentWalks.map(walk => {
-        const date = new Date(walk.date);
-        const dateStr = date.toLocaleDateString('nl-NL', {
-            weekday: 'short',
-            day: 'numeric',
-            month: 'short'
-        });
-        const timeStr = date.toLocaleTimeString('nl-NL', {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
+    vo2Data = {
+        current: current,
+        goal: goal,
+        lastUpdated: new Date().toISOString()
+    };
 
-        return `
-            <div class="walk-entry">
-                <div>
-                    <div class="walk-entry-date">${dateStr} om ${timeStr}</div>
-                    <div class="walk-entry-details">
-                        ${walk.km} km • ${walk.minutes} min • ${walk.steps.toLocaleString()} stappen
-                    </div>
-                </div>
-                <button onclick="deleteWalk(${walk.id})" style="background: #ff5252; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">
-                    Verwijder
-                </button>
-            </div>
-        `;
-    }).join('');
+    localStorage.setItem(STORAGE_KEYS.VO2MAX, JSON.stringify(vo2Data));
+    updateVO2Display();
+    showNotification('VO2 Max opgeslagen! ❤️');
 }
 
-function deleteWalk(id) {
-    if (confirm('Weet je zeker dat je deze wandeling wilt verwijderen?')) {
-        walks = walks.filter(w => w.id !== id);
-        saveWalks();
-        updateWalkStats();
-        displayWalkHistory();
-        showNotification('Wandeling verwijderd');
+function updateVO2Display() {
+    if (vo2Data.current && vo2Data.goal) {
+        document.getElementById('currentVO2').value = vo2Data.current;
+        document.getElementById('goalVO2').value = vo2Data.goal;
+
+        const displayElement = document.getElementById('vo2Display');
+        if (displayElement) {
+            displayElement.textContent = vo2Data.current.toFixed(1);
+        }
+
+        // Update category
+        updateVO2Category(vo2Data.current);
+
+        // Bereken progress
+        const progress = Math.min(100, (vo2Data.current / vo2Data.goal) * 100);
+        const progressBar = document.getElementById('vo2Progress');
+        if (progressBar) {
+            progressBar.style.width = progress + '%';
+        }
     }
+}
+
+function updateVO2Category(vo2) {
+    const categoryElement = document.getElementById('vo2Category');
+    if (!categoryElement) return;
+
+    let category = '';
+    let color = '';
+
+    // Voor mannen (aanpassen op basis van leeftijd 30-40)
+    if (vo2 < 35) {
+        category = 'Slecht - Werk aan je cardio!';
+        color = '#ff5252';
+    } else if (vo2 < 40) {
+        category = 'Onder gemiddeld - Blijf werken!';
+        color = '#ff9800';
+    } else if (vo2 < 45) {
+        category = 'Gemiddeld - Goed bezig!';
+        color = '#ffc107';
+    } else if (vo2 < 51) {
+        category = 'Goed - Sterke cardio fitness!';
+        color = '#4caf50';
+    } else if (vo2 < 56) {
+        category = 'Uitstekend - Top vorm!';
+        color = '#2196f3';
+    } else {
+        category = 'Superieur - Athleet niveau! 🏆';
+        color = '#9c27b0';
+    }
+
+    categoryElement.textContent = category;
+    categoryElement.style.color = color;
+    categoryElement.style.fontWeight = 'bold';
 }
 
 // ===== RECEPT FUNCTIES =====
@@ -215,22 +243,32 @@ function displayRecipes() {
         return;
     }
 
-    grid.innerHTML = recipes.map(recipe => `
-        <div class="recipe-card" onclick="showRecipeDetails(${recipe.id})">
-            <img src="${recipe.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'}"
-                 alt="${recipe.name}"
-                 class="recipe-image"
-                 onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'">
-            <div class="recipe-content">
-                <h3 class="recipe-title">${recipe.name}</h3>
-                <span class="recipe-category">${getCategoryName(recipe.category)}</span>
-                <div class="recipe-meta">
-                    <span>⏱️ ${recipe.prepTime} min</span>
-                    ${recipe.calories ? `<span>🔥 ${recipe.calories} kcal</span>` : ''}
+    grid.innerHTML = recipes.map(recipe => {
+        const macrosDisplay = recipe.macros
+            ? `<div class="macros-display">
+                <span class="macro-badge protein">🥩 ${recipe.macros.protein}g</span>
+                <span class="macro-badge carbs">🍞 ${recipe.macros.carbs}g</span>
+                <span class="macro-badge fat">🥑 ${recipe.macros.fat}g</span>
+               </div>`
+            : '';
+
+        return `
+            <div class="recipe-card" onclick="showRecipeDetails(${recipe.id})">
+                <img src="${recipe.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'}"
+                     alt="${recipe.name}"
+                     class="recipe-image"
+                     onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'">
+                <div class="recipe-content">
+                    <h3 class="recipe-title">${recipe.name}</h3>
+                    <span class="recipe-category">${getCategoryName(recipe.category)}</span>
+                    ${macrosDisplay}
+                    <div class="recipe-meta">
+                        <span>⏱️ ${recipe.prepTime} min</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function getCategoryName(category) {
@@ -254,6 +292,33 @@ function showRecipeDetails(id) {
         ? recipe.ingredients
         : recipe.ingredients.split('\n').filter(i => i.trim());
 
+    const macrosSection = recipe.macros
+        ? `<div class="recipe-detail-macros">
+            <h3>Macronutriënten</h3>
+            <div class="macros-bars">
+                <div class="macro-bar">
+                    <label>Eiwit</label>
+                    <div class="bar protein-bar">
+                        <span>${recipe.macros.protein}g</span>
+                    </div>
+                </div>
+                <div class="macro-bar">
+                    <label>Koolhydraten</label>
+                    <div class="bar carbs-bar">
+                        <span>${recipe.macros.carbs}g</span>
+                    </div>
+                </div>
+                <div class="macro-bar">
+                    <label>Vetten</label>
+                    <div class="bar fat-bar">
+                        <span>${recipe.macros.fat}g</span>
+                    </div>
+                </div>
+            </div>
+            <p class="calories-calc">Totaal: ~${calculateCalories(recipe.macros)} kcal</p>
+           </div>`
+        : '';
+
     details.innerHTML = `
         <img src="${recipe.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800'}"
              alt="${recipe.name}"
@@ -263,8 +328,8 @@ function showRecipeDetails(id) {
         <div class="recipe-detail-meta">
             <span>📁 ${getCategoryName(recipe.category)}</span>
             <span>⏱️ ${recipe.prepTime} minuten</span>
-            ${recipe.calories ? `<span>🔥 ${recipe.calories} kcal</span>` : ''}
         </div>
+        ${macrosSection}
         <div class="recipe-detail-section">
             <h3>Ingrediënten</h3>
             <ul>
@@ -283,6 +348,10 @@ function showRecipeDetails(id) {
     modal.style.display = 'block';
 }
 
+function calculateCalories(macros) {
+    return Math.round((macros.protein * 4) + (macros.carbs * 4) + (macros.fat * 9));
+}
+
 function deleteRecipe(id) {
     if (confirm('Weet je zeker dat je dit recept wilt verwijderen?')) {
         recipes = recipes.filter(r => r.id !== id);
@@ -297,37 +366,49 @@ function deleteRecipe(id) {
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('recipeForm');
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        const recipe = {
-            id: Date.now(),
-            name: document.getElementById('recipeName').value,
-            category: document.getElementById('recipeCategory').value,
-            ingredients: document.getElementById('recipeIngredients').value.split('\n').filter(i => i.trim()),
-            instructions: document.getElementById('recipeInstructions').value,
-            image: document.getElementById('recipeImage').value || '',
-            prepTime: parseInt(document.getElementById('recipePrepTime').value),
-            calories: parseInt(document.getElementById('recipeCalories').value) || null
-        };
+            const protein = parseFloat(document.getElementById('recipeProtein').value) || null;
+            const carbs = parseFloat(document.getElementById('recipeCarbs').value) || null;
+            const fat = parseFloat(document.getElementById('recipeFat').value) || null;
 
-        recipes.unshift(recipe);
-        saveRecipes();
-        displayRecipes();
+            const macros = (protein || carbs || fat) ? {
+                protein: protein || 0,
+                carbs: carbs || 0,
+                fat: fat || 0
+            } : null;
 
-        // Reset form
-        form.reset();
+            const recipe = {
+                id: Date.now(),
+                name: document.getElementById('recipeName').value,
+                category: document.getElementById('recipeCategory').value,
+                ingredients: document.getElementById('recipeIngredients').value.split('\n').filter(i => i.trim()),
+                instructions: document.getElementById('recipeInstructions').value,
+                image: document.getElementById('recipeImage').value || '',
+                prepTime: parseInt(document.getElementById('recipePrepTime').value),
+                macros: macros
+            };
 
-        // Scroll to recipes
-        document.getElementById('recipeGrid').scrollIntoView({ behavior: 'smooth' });
+            recipes.unshift(recipe);
+            saveRecipes();
+            displayRecipes();
 
-        showNotification('Recept toegevoegd! 🎉');
-    });
+            // Reset form
+            form.reset();
+
+            // Scroll to recipes
+            document.getElementById('recipeGrid').scrollIntoView({ behavior: 'smooth' });
+
+            showNotification('Recept toegevoegd! 🎉');
+        });
+    }
 
     // Initialize displays
-    updateWalkStats();
-    displayWalkHistory();
     displayRecipes();
+    updateBodyfatDisplay();
+    updateVO2Display();
 });
 
 function saveRecipes() {
