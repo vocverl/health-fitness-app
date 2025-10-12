@@ -1,0 +1,355 @@
+// Virgil's Protocol Data
+// Deze data wordt dynamisch geladen in de app
+// Update dit bestand of vervang met CSV import
+
+const protocolData = {
+    supplements: [
+        {
+            name: "NAD+ Regen",
+            category: "Supplement",
+            brand: "RevGenetics",
+            supplier: "SenoviQC",
+            dosage: "650mg",
+            frequency: "H", // H = Dagelijks, M = Maandelijks
+            beneficiary: "Virgil",
+            seller: "Paypal Virgil",
+            website: "www.bioptimizers.com",
+            pricePerUnit: "60 €",
+            totalCost: "75.00 €",
+            status: "Active",
+            stock: "180 €",
+            daysRemaining: "60 €",
+            costPerDay: "1.25 €",
+            costPerMonth: "37.50 €",
+            notes: ""
+        },
+        {
+            name: "Super Fisetin",
+            category: "Moleculair agent",
+            brand: "RevGenetics",
+            supplier: "SenoviQC",
+            dosage: "nvt",
+            frequency: "H",
+            beneficiary: "Virgil",
+            seller: "Paypal Virgil",
+            website: "www.revgenetics.com",
+            pricePerUnit: "180 €",
+            totalCost: "111.00 €",
+            status: "Active",
+            stock: "180 €",
+            daysRemaining: "60 €",
+            costPerDay: "1 €",
+            costPerMonth: "0.62 €",
+            notes: "18.50"
+        },
+        {
+            name: "Nicotinamide Mononucleotide",
+            category: "Moleculair agent",
+            brand: "RevGenetics",
+            supplier: "NMN",
+            dosage: "1000mg",
+            frequency: "H",
+            beneficiary: "Virgil",
+            seller: "Paypal Virgil",
+            website: "www.revgenetics.com",
+            pricePerUnit: "60 €",
+            totalCost: "45.00 €",
+            status: "Active",
+            stock: "60 €",
+            daysRemaining: "60 €",
+            costPerDay: "1 €",
+            costPerMonth: "0.75 €",
+            notes: "22.50"
+        },
+        {
+            name: "EVOO",
+            category: "Food",
+            brand: "Blueprint",
+            supplier: "Protective against aging damage",
+            dosage: "15 ml",
+            frequency: "H",
+            beneficiary: "Gezin",
+            seller: "Paypal Virgil",
+            website: "www.blueprint.bryanjohnson.com",
+            pricePerUnit: "100 €",
+            totalCost: "105.00 €",
+            status: "Active",
+            stock: "100 €",
+            daysRemaining: "60 €",
+            costPerDay: "1 €",
+            costPerMonth: "1.05 €",
+            notes: "31.50"
+        },
+        {
+            name: "Daily Synbiotic",
+            category: "Supplement",
+            brand: "Seed",
+            supplier: "Improve microbiome health and digestives",
+            dosage: "400 mg",
+            frequency: "M",
+            beneficiary: "Virgil",
+            seller: "Virgil",
+            website: "www.seed.com",
+            pricePerUnit: "60 €",
+            totalCost: "54.00 €",
+            status: "Active",
+            stock: "60 €",
+            daysRemaining: "60 €",
+            costPerDay: "2 €",
+            costPerMonth: "1.80 €",
+            notes: "54.00"
+        },
+        {
+            name: "Magnesium Malaat",
+            category: "Supplement",
+            brand: "Now Foods",
+            supplier: "Beter functioneren spieren, bloedvaten, botten",
+            dosage: "115 mg",
+            frequency: "M",
+            beneficiary: "Virgil",
+            seller: "Virgil",
+            website: "www.bol.com",
+            pricePerUnit: "180 €",
+            totalCost: "28.00 €",
+            status: "Active",
+            stock: "180 €",
+            daysRemaining: "30 €",
+            costPerDay: "1 €",
+            costPerMonth: "0.16 €",
+            notes: "4.67"
+        },
+        {
+            name: "Magnesium Glycinate",
+            category: "Supplement",
+            brand: "Now Foods",
+            supplier: "Beter functioneren spieren, bloedvaten, botten",
+            dosage: "200 mg",
+            frequency: "H",
+            beneficiary: "Virgil",
+            seller: "Virgil",
+            website: "www.bol.com",
+            pricePerUnit: "180 €",
+            totalCost: "30.00 €",
+            status: "Active",
+            stock: "180 €",
+            daysRemaining: "1 €",
+            costPerDay: "1 €",
+            costPerMonth: "0.17 €",
+            notes: "5.00"
+        },
+        {
+            name: "Omega-3 Algienolie DNA & EPA",
+            category: "Supplement",
+            brand: "Testa",
+            supplier: "Anti-Inflammatory",
+            dosage: "250 mg DHA",
+            frequency: "H",
+            beneficiary: "Virgil",
+            seller: "Virgil",
+            website: "www.testa-omega3.com/nl/",
+            pricePerUnit: "120 €",
+            totalCost: "36.00 €",
+            status: "Active",
+            stock: "120 €",
+            daysRemaining: "114 €",
+            costPerDay: "1 €",
+            costPerMonth: "0.30 €",
+            notes: "9.00"
+        },
+        {
+            name: "Creatine",
+            category: "Supplement",
+            brand: "Blueprint",
+            supplier: "Cognitive health, muscle building and recovery",
+            dosage: "10g",
+            frequency: "M",
+            beneficiary: "Virgil",
+            seller: "Virgil",
+            website: "www.blueprint.bryanjohnson.com",
+            pricePerUnit: "114 €",
+            totalCost: "43.00 €",
+            status: "Active",
+            stock: "114 €",
+            daysRemaining: "60 €",
+            costPerDay: "2 €",
+            costPerMonth: "0.75 €",
+            notes: "22.63"
+        },
+        {
+            name: "Eiwit Poeder (whey based) + diversen",
+            category: "Supplement",
+            brand: "Blueprint",
+            supplier: "High quality cognitive",
+            dosage: "26g",
+            frequency: "H",
+            beneficiary: "Virgil",
+            seller: "Virgil",
+            website: "www.blueprint.bryanjohnson.com",
+            pricePerUnit: "60 €",
+            totalCost: "102.00 €",
+            status: "Active",
+            stock: "0.5 €",
+            daysRemaining: "1 €",
+            costPerDay: "1 €",
+            costPerMonth: "1.70 €",
+            notes: "51.00"
+        },
+        {
+            name: "Vitamine D3",
+            category: "Supplement",
+            brand: "Now Foods",
+            supplier: "Support immune system",
+            dosage: "2000 IU",
+            frequency: "H",
+            beneficiary: "Virgil",
+            seller: "Virgil",
+            website: "www.bol.com/nl/nl/",
+            pricePerUnit: "240 €",
+            totalCost: "25.00 €",
+            status: "Active",
+            stock: "240 €",
+            daysRemaining: "60 €",
+            costPerDay: "1 €",
+            costPerMonth: "0.10 €",
+            notes: "3.13"
+        },
+        {
+            name: "One-Multi",
+            category: "Supplement",
+            brand: "Pure Encapsulations",
+            supplier: "Ondervulling aanvullen met veroudering",
+            dosage: "",
+            frequency: "H",
+            beneficiary: "Virgil",
+            seller: "Virgil",
+            website: "www.bol.com/nl/nl/",
+            pricePerUnit: "60 €",
+            totalCost: "35.00 €",
+            status: "Inactive",
+            stock: "1 €",
+            daysRemaining: "60 €",
+            costPerDay: "1 €",
+            costPerMonth: "0.58 €",
+            notes: "17.50"
+        },
+        {
+            name: "Spirulina tabletten",
+            category: "Supplement",
+            brand: "Spirulina.nl",
+            supplier: "Algemene gezondheid",
+            dosage: "250/6mg",
+            frequency: "M",
+            beneficiary: "Virgil",
+            seller: "Virgil",
+            website: "www.spirulina.nl",
+            pricePerUnit: "500 €",
+            totalCost: "16.00 €",
+            status: "Inactive",
+            stock: "500 €",
+            daysRemaining: "60 €",
+            costPerDay: "5 €",
+            costPerMonth: "0.16 €",
+            notes: "4.80"
+        },
+        {
+            name: "OS-01-FACE",
+            category: "Skincare",
+            brand: "OneSkin",
+            supplier: "Huidverjonging",
+            dosage: "1x",
+            frequency: "H",
+            beneficiary: "Virgil & Simone",
+            seller: "Rabo Visa Virgil",
+            website: "www.oneskin.co",
+            pricePerUnit: "60 €",
+            totalCost: "113.00 €",
+            status: "Active",
+            stock: "60 €",
+            daysRemaining: "90 €",
+            costPerDay: "0.5 €",
+            costPerMonth: "0.94 €",
+            notes: "28.25"
+        },
+        {
+            name: "PREP Facial Cleanser",
+            category: "Skincare",
+            brand: "OneSkin",
+            supplier: "Huidverjonging",
+            dosage: "1x",
+            frequency: "H",
+            beneficiary: "Virgil & Simone",
+            seller: "Rabo Visa Virgil",
+            website: "www.oneskin.co",
+            pricePerUnit: "60 €",
+            totalCost: "48.00 €",
+            status: "Active",
+            stock: "60 €",
+            daysRemaining: "90 €",
+            costPerDay: "0.5 €",
+            costPerMonth: "0.40 €",
+            notes: "12.00"
+        },
+        {
+            name: "OS-01-HAIR peptide scalp spray",
+            category: "Skincare",
+            brand: "OneSkin",
+            supplier: "Huidverjonging",
+            dosage: "1x",
+            frequency: "H",
+            beneficiary: "Virgil",
+            seller: "Rabo Visa Virgil",
+            website: "www.oneskin.co",
+            pricePerUnit: "90 €",
+            totalCost: "197.00 €",
+            status: "Active",
+            stock: "90 €",
+            daysRemaining: "1 €",
+            costPerDay: "1 €",
+            costPerMonth: "2.19 €",
+            notes: "65.67"
+        }
+    ],
+
+    categories: {
+        supplements: {
+            name: "Supplements",
+            icon: "💊",
+            description: "Dagelijkse supplementen voor optimale gezondheid"
+        },
+        skincare: {
+            name: "Skincare",
+            icon: "✨",
+            description: "Huidverzorging en anti-aging"
+        },
+        food: {
+            name: "Food",
+            icon: "🥗",
+            description: "Voeding en functionele foods"
+        },
+        molecular: {
+            name: "Molecular Agents",
+            icon: "🧬",
+            description: "Moleculaire anti-aging agents"
+        }
+    },
+
+    totalMonthly: "425.14 €",
+    totalDaily: "14.17 €",
+    lastUpdated: new Date().toISOString()
+};
+
+// Functie om categorieën te filteren
+function getItemsByCategory(category) {
+    return protocolData.supplements.filter(item => {
+        if (category === 'supplements') return item.category === 'Supplement';
+        if (category === 'skincare') return item.category === 'Skincare';
+        if (category === 'food') return item.category === 'Food';
+        if (category === 'molecular') return item.category === 'Moleculair agent';
+        return false;
+    });
+}
+
+// Functie om alleen actieve items te krijgen
+function getActiveItems() {
+    return protocolData.supplements.filter(item => item.status === 'Active');
+}

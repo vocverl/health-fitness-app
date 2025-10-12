@@ -505,3 +505,111 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ===== PROTOCOL FUNCTIES =====
+
+let currentFilter = 'all';
+
+function displayProtocolItems(filter = 'all') {
+    const grid = document.getElementById('protocolGrid');
+    if (!grid) return;
+
+    currentFilter = filter;
+
+    let items = protocolData.supplements;
+
+    // Filter items op basis van categorie
+    if (filter !== 'all') {
+        items = items.filter(item => {
+            if (filter === 'supplements') return item.category === 'Supplement';
+            if (filter === 'skincare') return item.category === 'Skincare';
+            if (filter === 'food') return item.category === 'Food';
+            if (filter === 'molecular') return item.category === 'Moleculair agent';
+            return false;
+        });
+    }
+
+    // Toon alleen actieve items standaard
+    const activeItems = items.filter(item => item.status === 'Active');
+
+    if (activeItems.length === 0) {
+        grid.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">Geen items gevonden in deze categorie.</p>';
+        return;
+    }
+
+    grid.innerHTML = activeItems.map(item => `
+        <div class="protocol-item ${item.status.toLowerCase()}">
+            <div class="protocol-item-header">
+                <h3 class="protocol-item-title">${item.name}</h3>
+                <span class="protocol-item-status ${item.status.toLowerCase()}">${item.status}</span>
+            </div>
+
+            <span class="protocol-item-category">${item.category}</span>
+
+            ${item.dosage ? `<div class="protocol-item-dosage">💊 ${item.dosage}</div>` : ''}
+
+            ${item.supplier ? `<div class="protocol-item-supplier">${item.supplier}</div>` : ''}
+
+            <div class="protocol-item-info">
+                ${item.brand ? `
+                    <div class="protocol-info-row">
+                        <span class="protocol-info-label">Merk:</span>
+                        <span class="protocol-info-value">${item.brand}</span>
+                    </div>
+                ` : ''}
+
+                ${item.frequency ? `
+                    <div class="protocol-info-row">
+                        <span class="protocol-info-label">Frequentie:</span>
+                        <span class="protocol-info-value">${item.frequency === 'H' ? 'Dagelijks' : 'Maandelijks'}</span>
+                    </div>
+                ` : ''}
+
+                ${item.stock ? `
+                    <div class="protocol-info-row">
+                        <span class="protocol-info-label">Voorraad:</span>
+                        <span class="protocol-info-value">${item.stock}</span>
+                    </div>
+                ` : ''}
+            </div>
+
+            <div class="protocol-item-footer">
+                <div class="protocol-item-cost">${item.costPerMonth}</div>
+                ${item.website ? `<a href="${item.website}" target="_blank" class="protocol-item-link">Bekijk →</a>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateProtocolSummary() {
+    const activeItems = protocolData.supplements.filter(item => item.status === 'Active');
+
+    document.getElementById('totalItems').textContent = activeItems.length;
+    document.getElementById('totalMonthly').textContent = protocolData.totalMonthly;
+    document.getElementById('totalDaily').textContent = protocolData.totalDaily;
+}
+
+// Protocol tabs functionaliteit
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.protocol-tab');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Remove active class from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+
+            // Add active class to clicked tab
+            this.classList.add('active');
+
+            // Get category and display items
+            const category = this.getAttribute('data-category');
+            displayProtocolItems(category);
+        });
+    });
+
+    // Initialize protocol display
+    if (typeof protocolData !== 'undefined') {
+        displayProtocolItems('all');
+        updateProtocolSummary();
+    }
+});

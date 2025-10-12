@@ -13,7 +13,8 @@
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#principle" class="nav-link">70/30 Principe</a></li>
-                <li><a href="#metrics" class="nav-link">Mijn Metrics</a></li>
+                <li><a href="#protocol" class="nav-link">Protocol</a></li>
+                <li><a href="#metrics" class="nav-link">Metrics</a></li>
                 <li><a href="#recepten" class="nav-link">Recepten</a></li>
                 <li><a href="#myfitnesspal" class="nav-link">Food Diary</a></li>
             </ul>
@@ -272,6 +273,63 @@
         </div>
     </section>
 
+    <section id="protocol" class="section protocol-section">
+        <div class="container">
+            <h2 class="section-title">🧬 Virgil's Protocol</h2>
+            <p class="section-intro">
+                Mijn persoonlijke longevity & health optimization protocol, geïnspireerd door Bryan Johnson's Blueprint
+            </p>
+
+            <div class="protocol-summary">
+                <div class="summary-card">
+                    <div class="summary-icon">💰</div>
+                    <div class="summary-content">
+                        <h3 id="totalMonthly">€425.14</h3>
+                        <p>Per maand</p>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">📅</div>
+                    <div class="summary-content">
+                        <h3 id="totalDaily">€14.17</h3>
+                        <p>Per dag</p>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">💊</div>
+                    <div class="summary-content">
+                        <h3 id="totalItems">17</h3>
+                        <p>Actieve items</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="protocol-tabs">
+                <button class="protocol-tab active" data-category="all">Alle</button>
+                <button class="protocol-tab" data-category="supplements">💊 Supplements</button>
+                <button class="protocol-tab" data-category="skincare">✨ Skincare</button>
+                <button class="protocol-tab" data-category="food">🥗 Food</button>
+                <button class="protocol-tab" data-category="molecular">🧬 Molecular</button>
+            </div>
+
+            <div id="protocolGrid" class="protocol-grid">
+                <!-- Protocol items worden hier dynamisch geladen -->
+            </div>
+
+            <div class="protocol-info">
+                <h3>📊 Over dit Protocol</h3>
+                <p>
+                    Dit protocol is gebaseerd op wetenschappelijk onderzoek en persoonlijke experimentatie.
+                    Elk supplement en product is zorgvuldig geselecteerd op basis van effectiviteit, kwaliteit en prijs.
+                </p>
+                <p>
+                    <strong>Disclaimer:</strong> Dit is mijn persoonlijke protocol. Raadpleeg altijd een arts voordat je
+                    nieuwe supplementen begint te gebruiken.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <section id="myfitnesspal" class="section mfp-section">
         <div class="container">
             <h2 class="section-title">📱 Mijn Food Diary</h2>
@@ -337,6 +395,7 @@
         </div>
     </div>
 
+    <script src="protocol-data.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
