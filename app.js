@@ -575,7 +575,7 @@ function displayProtocolItems(filter = 'all') {
 
             <div class="protocol-item-footer">
                 <div class="protocol-item-cost">${item.costPerMonth}</div>
-                ${item.website ? `<a href="${item.website}" target="_blank" class="protocol-item-link">Bekijk →</a>` : ''}
+                ${item.website ? `<a href="${item.website.startsWith('http') ? item.website : 'https://' + item.website}" target="_blank" rel="noopener noreferrer" class="protocol-item-link">Bekijk →</a>` : ''}
             </div>
         </div>
     `).join('');
