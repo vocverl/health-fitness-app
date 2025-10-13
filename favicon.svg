@@ -1,42 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
-    <linearGradient id="dnaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#2196F3;stop-opacity:1" />
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a237e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d47a1;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="helixGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00e5ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#18ffff;stop-opacity:1" />
     </linearGradient>
   </defs>
 
-  <!-- Background circle -->
-  <circle cx="50" cy="50" r="48" fill="url(#dnaGradient)" />
+  <!-- Dark blue background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#bgGradient)" />
 
-  <!-- DNA Helix Structure -->
+  <!-- DNA Helix Structure - Minimalist -->
   <!-- Left strand -->
-  <path d="M 30 20 Q 25 35, 30 50 Q 35 65, 30 80"
-        stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M 32 18 Q 27 35, 32 50 Q 37 65, 32 82"
+        stroke="url(#helixGradient)" stroke-width="3.5" fill="none"
+        stroke-linecap="round" opacity="0.95"/>
 
   <!-- Right strand -->
-  <path d="M 70 20 Q 75 35, 70 50 Q 65 65, 70 80"
-        stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M 68 18 Q 73 35, 68 50 Q 63 65, 68 82"
+        stroke="url(#helixGradient)" stroke-width="3.5" fill="none"
+        stroke-linecap="round" opacity="0.95"/>
 
-  <!-- Connection bars -->
-  <line x1="30" y1="25" x2="70" y2="25" stroke="white" stroke-width="3" opacity="0.9"/>
-  <line x1="32" y1="35" x2="68" y2="35" stroke="white" stroke-width="3" opacity="0.9"/>
-  <line x1="30" y1="45" x2="70" y2="45" stroke="white" stroke-width="3" opacity="0.9"/>
-  <line x1="32" y1="55" x2="68" y2="55" stroke="white" stroke-width="3" opacity="0.9"/>
-  <line x1="30" y1="65" x2="70" y2="65" stroke="white" stroke-width="3" opacity="0.9"/>
-  <line x1="32" y1="75" x2="68" y2="75" stroke="white" stroke-width="3" opacity="0.9"/>
+  <!-- Connection bars - sleek and minimal -->
+  <line x1="32" y1="23" x2="68" y2="23" stroke="#00e5ff" stroke-width="2" opacity="0.7"/>
+  <line x1="34" y1="33" x2="66" y2="33" stroke="#00e5ff" stroke-width="2" opacity="0.7"/>
+  <line x1="32" y1="43" x2="68" y2="43" stroke="#00e5ff" stroke-width="2" opacity="0.7"/>
+  <line x1="34" y1="53" x2="66" y2="53" stroke="#00e5ff" stroke-width="2" opacity="0.7"/>
+  <line x1="32" y1="63" x2="68" y2="63" stroke="#00e5ff" stroke-width="2" opacity="0.7"/>
+  <line x1="34" y1="73" x2="66" y2="73" stroke="#00e5ff" stroke-width="2" opacity="0.7"/>
 
-  <!-- DNA base pair dots -->
-  <circle cx="30" cy="25" r="3.5" fill="white"/>
-  <circle cx="70" cy="25" r="3.5" fill="white"/>
-  <circle cx="32" cy="35" r="3.5" fill="white"/>
-  <circle cx="68" cy="35" r="3.5" fill="white"/>
-  <circle cx="30" cy="45" r="3.5" fill="white"/>
-  <circle cx="70" cy="45" r="3.5" fill="white"/>
-  <circle cx="32" cy="55" r="3.5" fill="white"/>
-  <circle cx="68" cy="55" r="3.5" fill="white"/>
-  <circle cx="30" cy="65" r="3.5" fill="white"/>
-  <circle cx="70" cy="65" r="3.5" fill="white"/>
-  <circle cx="32" cy="75" r="3.5" fill="white"/>
-  <circle cx="68" cy="75" r="3.5" fill="white"/>
+  <!-- DNA nodes - cyan glow effect -->
+  <circle cx="32" cy="23" r="2.5" fill="#00e5ff" opacity="0.9"/>
+  <circle cx="68" cy="23" r="2.5" fill="#00e5ff" opacity="0.9"/>
+  <circle cx="34" cy="33" r="2.5" fill="#18ffff" opacity="0.9"/>
+  <circle cx="66" cy="33" r="2.5" fill="#18ffff" opacity="0.9"/>
+  <circle cx="32" cy="43" r="2.5" fill="#00e5ff" opacity="0.9"/>
+  <circle cx="68" cy="43" r="2.5" fill="#00e5ff" opacity="0.9"/>
+  <circle cx="34" cy="53" r="2.5" fill="#18ffff" opacity="0.9"/>
+  <circle cx="66" cy="53" r="2.5" fill="#18ffff" opacity="0.9"/>
+  <circle cx="32" cy="63" r="2.5" fill="#00e5ff" opacity="0.9"/>
+  <circle cx="68" cy="63" r="2.5" fill="#00e5ff" opacity="0.9"/>
+  <circle cx="34" cy="73" r="2.5" fill="#18ffff" opacity="0.9"/>
+  <circle cx="66" cy="73" r="2.5" fill="#18ffff" opacity="0.9"/>
+
+  <!-- Subtle outer glow -->
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#00e5ff"
+          stroke-width="0.5" opacity="0.3"/>
 </svg>
